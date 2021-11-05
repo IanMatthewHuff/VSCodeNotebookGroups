@@ -1,6 +1,6 @@
 {
 	"name": "vscode-notebook-groups",
-	"displayName": "vscode-notebook-groups",
+	"displayName": "VSCode Notebook Groups",
 	"description": "Cell execution groups for VS Code notebooks",
 	"version": "0.0.1",
 	"engines": {
@@ -11,8 +11,9 @@
 		"Data Science",
 		"Notebooks"
 	],
+	"keywords": ["notebook", "jupyter", "ipynb", "execution"],
 	"activationEvents": [
-		"onCommand:vscode-notebook-groups.helloWorld"
+		"onNotebook:*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
