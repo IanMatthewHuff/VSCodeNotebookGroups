@@ -1,6 +1,6 @@
-# vscode-run-groups README
+# vscode-notebook-groups README
 
-This is the README for your extension "vscode-run-groups". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "vscode-notebook-groups". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
