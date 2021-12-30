@@ -1,0 +1,7 @@
+- [X] Add the correct commands and correct command placement
+- [ ] Add custom SVG icons
+- [ ] Add button functionality to add cells into a run group
+- [ ] Save group membership in cell metadata
+- [ ] When in a group, hide the add for that group and show the remove
+- [ ] Run execution commands to run cell in a group
+- [ ] Basic VS Code tests

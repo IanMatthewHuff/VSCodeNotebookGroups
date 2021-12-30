@@ -1,6 +1,6 @@
 {
 	"name": "vscode-notebook-groups",
-	"displayName": "vscode-notebook-groups",
+	"displayName": "VSCode Notebook Groups",
 	"description": "Cell execution groups for VS Code notebooks",
 	"version": "0.0.1",
 	"engines": {
@@ -11,15 +11,168 @@
 		"Data Science",
 		"Notebooks"
 	],
+	"keywords": ["notebook", "jupyter", "ipynb", "execution"],
 	"activationEvents": [
-		"onCommand:vscode-notebook-groups.helloWorld"
+		"onNotebook:*"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-notebook-groups.helloWorld",
-				"title": "Hello World"
+				"command": "vscode-notebook-groups.executeGroup1",
+				"title": "Execute Group 1",
+				"category": "Notebook Run Groups",
+				"icon": "$(run)",
+				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.addGroup1",
+				"title": "Add Group 1",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-in)",
+				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.removeGroup1",
+				"title": "Remove Group 1",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-out)",
+				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.executeGroup2",
+				"title": "Execute Group 2",
+				"category": "Notebook Run Groups",
+				"icon": "$(run)",
+				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.addGroup2",
+				"title": "Add Group 2",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-in)",
+				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.removeGroup2",
+				"title": "Remove Group 2",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-out)",
+				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.executeGroup3",
+				"title": "Execute Group 3",
+				"category": "Notebook Run Groups",
+				"icon": "$(run)",
+				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.addGroup3",
+				"title": "Add Group 3",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-in)",
+				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+			},
+			{
+				"command": "vscode-notebook-groups.removeGroup3",
+				"title": "Remove Group 3",
+				"category": "Notebook Run Groups",
+				"icon": "$(sign-out)",
+				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+			}
+		],
+		"menus": {
+			"notebook/toolbar": [
+				{
+					"command": "vscode-notebook-groups.executeGroup1",
+					"group": "navigation/execute@1",
+					"when": "config.notebookRunGroups.groupCount > 0 && config.notebookRunGroups.runIconsOnEditorToolbar"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup2",
+					"group": "navigation/execute@2",
+					"when": "config.notebookRunGroups.groupCount > 1 && config.notebookRunGroups.runIconsOnEditorToolbar"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup3",
+					"group": "navigation/execute@3",
+					"when": "config.notebookRunGroups.groupCount > 2 && config.notebookRunGroups.runIconsOnEditorToolbar"
+				}
+			],
+			"notebook/cell/title": [
+				{
+					"command": "vscode-notebook-groups.addGroup1",
+					"group": "inline/cell@10",
+					"when": "config.notebookRunGroups.groupCount > 0"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup1",
+					"group": "inline/cell@11",
+					"when": "config.notebookRunGroups.groupCount > 0"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup1",
+					"group": "inline/cell@12",
+					"when": "config.notebookRunGroups.groupCount > 0 && config.notebookRunGroups.runIconsOnCell"
+				},
+				{
+					"command": "vscode-notebook-groups.addGroup2",
+					"group": "inline/cell@13",
+					"when": "config.notebookRunGroups.groupCount > 1"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup2",
+					"group": "inline/cell@14",
+					"when": "config.notebookRunGroups.groupCount > 1"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup2",
+					"group": "inline/cell@15",
+					"when": "config.notebookRunGroups.groupCount > 1 && config.notebookRunGroups.runIconsOnCell"
+				},
+				{
+					"command": "vscode-notebook-groups.addGroup3",
+					"group": "inline/cell@16",
+					"when": "config.notebookRunGroups.groupCount > 2"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup3",
+					"group": "inline/cell@17",
+					"when": "config.notebookRunGroups.groupCount > 2"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup3",
+					"group": "inline/cell@18",
+					"when": "config.notebookRunGroups.groupCount > 2 && config.notebookRunGroups.runIconsOnCell"
+				}
+			]
+		},
+		"configuration":[
+			{
+				"type": "object",
+				"title": "NotebookRunGroups",
+				"properties": {
+					"notebookRunGroups.groupCount": {
+						"type": "integer",
+						"enum": [0, 1, 2, 3],
+						"default": 3,
+						"description": "Count of run groups to show (0-3)",
+						"scope": "machine"
+					},
+					"notebookRunGroups.runIconsOnCell": {
+						"type": "boolean",
+						"default": false,
+						"description": "Display group run icons on each cell toolbar",
+						"scope": "machine"
+					},
+					"notebookRunGroups.runIconsOnEditorToolbar": {
+						"type": "boolean",
+						"default": true,
+						"description": "Display group run icons on the global notebook editor toolbar",
+						"scope": "machine"
+					}
+				}
 			}
 		]
 	},
