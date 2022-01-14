@@ -4,17 +4,30 @@
 	"description": "Cell execution groups for VS Code notebooks",
 	"version": "0.0.1",
 	"engines": {
-		"vscode": "^1.61.0"
+		"vscode": "^1.63.0"
 	},
 	"categories": [
 		"Other",
 		"Data Science",
 		"Notebooks"
 	],
-	"keywords": ["notebook", "jupyter", "ipynb", "execution"],
+	"keywords": [
+		"notebook",
+		"jupyter",
+		"ipynb",
+		"execution"
+	],
+	"enabledApiProposals": [
+		"notebookEditor",
+		"notebookEditorEdit"
+	],
 	"activationEvents": [
 		"onNotebook:*"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/IanMatthewHuff/VSCodeNotebookGroups"
+	},
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
@@ -82,7 +95,6 @@
 				"command": "vscode-notebook-groups.executeGroup3",
 				"title": "Execute Group 3",
 				"category": "Notebook Run Groups",
-				"icon": "$(run)",
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeRun-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeRun-dark.svg"
@@ -93,7 +105,6 @@
 				"command": "vscode-notebook-groups.addGroup3",
 				"title": "Add Group 3",
 				"category": "Notebook Run Groups",
-				"icon": "$(sign-in)",
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeAdd-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeAdd-dark.svg"
@@ -104,7 +115,6 @@
 				"command": "vscode-notebook-groups.removeGroup3",
 				"title": "Remove Group 3",
 				"category": "Notebook Run Groups",
-				"icon": "$(sign-out)",
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeRemove-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeRemove-dark.svg"
@@ -178,14 +188,19 @@
 				}
 			]
 		},
-		"configuration":[
+		"configuration": [
 			{
 				"type": "object",
 				"title": "NotebookRunGroups",
 				"properties": {
 					"notebookRunGroups.groupCount": {
 						"type": "integer",
-						"enum": [0, 1, 2, 3],
+						"enum": [
+							0,
+							1,
+							2,
+							3
+						],
 						"default": 3,
 						"description": "Count of run groups to show (0-3)",
 						"scope": "machine"
