@@ -2,9 +2,12 @@
 - [x] Add custom SVG icons
 - [x] Add button functionality to add cells into a run group
 - [x] Save group membership in cell metadata
-- [ ] When in a group, hide the add for that group and show the remove
+- [x] When in a group, hide the add for that group and show the remove
 - [ ] CI / Lint
 - [ ] Run execution commands to run cell in a group
+- [ ] Clean up TODOs
+- [ ] Consolidated run button
+- [ ] Restrict when command palette commands show up
 - [ ] Basic VS Code tests
 - [ ] Cleanup README and skeleton code
 - [ ] Release on marketplace

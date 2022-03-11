@@ -1,22 +1,39 @@
-// Context tracker exists to keep tabs on all cells that are part of each run group
-// When files are opened we scan the metadata for them to see what cells are in which run
-// groups. We also update this as cells are added and removed from the run groups
-export class ContextTracker {
-    private cellMapping: Map<string, string> = new Map<string, string>();
+import * as vscode from 'vscode';
 
-    // Just one instance of our Context Tracker we can use from anywhere
-    private static instance: ContextTracker;
-    private constructor() {}
+// To work around some issues with context keys I'm only considering the currently selected cell for
+// determining if I should show the remove or add buttons for each group. Long term I don't like this
+// solution though, so looking for a way around it
+export function updateContextKeys() {
+    const activeSelections = vscode.window.activeNotebookEditor?.selections;
 
-    public static getContextTracker(): ContextTracker {
-        if (!ContextTracker.instance) {
-            ContextTracker.instance = new ContextTracker();
-        }
+    if (activeSelections?.length) {
+        const activeSelection = activeSelections[0];
+        const activeCell = vscode.window.activeNotebookEditor?.document.cellAt(activeSelection.start);
+        activeCell && setCellContextKeys(activeCell);
+    }
+}
 
-        return ContextTracker.instance;
+function setCellContextKeys(cell: vscode.NotebookCell) {
+    // Get cell metadata custom to our extension
+    // TODO: Common code with code in commands.ts
+    const customMetadata = cell.metadata.custom?.notebookRunGroups || {};
+    let currentValue = customMetadata['groups'] as string || '';
+
+    if (currentValue.includes('1')) {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupOne', true);
+    } else {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupOne', false);
     }
 
-    // For the given ID (cell + document) change the membership
-    public updateCellMembership(cellId: string, membership: string) {
+    if (currentValue.includes('2')) {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupTwo', true);
+    } else {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupTwo', false);
+    }
+
+    if (currentValue.includes('3')) {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupThree', true);
+    } else {
+        vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupThree', false);
     }
 }

@@ -144,47 +144,47 @@
 				{
 					"command": "vscode-notebook-groups.addGroup1",
 					"group": "inline/cell@10",
-					"when": "config.notebookRunGroups.groupCount > 0"
+					"when": "config.notebookRunGroups.groupCount > 0 && !notebookRunGroups.inGroupOne"
 				},
 				{
 					"command": "vscode-notebook-groups.removeGroup1",
 					"group": "inline/cell@11",
-					"when": "config.notebookRunGroups.groupCount > 0"
+					"when": "config.notebookRunGroups.groupCount > 0 && notebookRunGroups.inGroupOne"
 				},
 				{
 					"command": "vscode-notebook-groups.executeGroup1",
 					"group": "inline/cell@12",
-					"when": "config.notebookRunGroups.groupCount > 0 && config.notebookRunGroups.runIconsOnCell"
+					"when": "config.notebookRunGroups.groupCount > 0 && notebookRunGroups.inGroupOne && config.notebookRunGroups.runIconsOnCell"
 				},
 				{
 					"command": "vscode-notebook-groups.addGroup2",
 					"group": "inline/cell@13",
-					"when": "config.notebookRunGroups.groupCount > 1"
+					"when": "config.notebookRunGroups.groupCount > 1 && !notebookRunGroups.inGroupTwo"
 				},
 				{
 					"command": "vscode-notebook-groups.removeGroup2",
 					"group": "inline/cell@14",
-					"when": "config.notebookRunGroups.groupCount > 1"
+					"when": "config.notebookRunGroups.groupCount > 1 && notebookRunGroups.inGroupTwo"
 				},
 				{
 					"command": "vscode-notebook-groups.executeGroup2",
 					"group": "inline/cell@15",
-					"when": "config.notebookRunGroups.groupCount > 1 && config.notebookRunGroups.runIconsOnCell"
+					"when": "config.notebookRunGroups.groupCount > 1 && notebookRunGroups.inGroupTwo && config.notebookRunGroups.runIconsOnCell"
 				},
 				{
 					"command": "vscode-notebook-groups.addGroup3",
 					"group": "inline/cell@16",
-					"when": "config.notebookRunGroups.groupCount > 2"
+					"when": "config.notebookRunGroups.groupCount > 2 && !notebookRunGroups.inGroupThree"
 				},
 				{
 					"command": "vscode-notebook-groups.removeGroup3",
 					"group": "inline/cell@17",
-					"when": "config.notebookRunGroups.groupCount > 2"
+					"when": "config.notebookRunGroups.groupCount > 2 && notebookRunGroups.inGroupThree"
 				},
 				{
 					"command": "vscode-notebook-groups.executeGroup3",
 					"group": "inline/cell@18",
-					"when": "config.notebookRunGroups.groupCount > 2 && config.notebookRunGroups.runIconsOnCell"
+					"when": "config.notebookRunGroups.groupCount > 2 && notebookRunGroups.inGroupThree && config.notebookRunGroups.runIconsOnCell"
 				}
 			]
 		},
