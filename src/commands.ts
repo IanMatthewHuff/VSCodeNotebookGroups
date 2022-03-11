@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { updateContextKeys } from './contextTracker';
 import { RunGroup } from './enums';
 import { log } from './util/logging';
 
@@ -13,6 +14,17 @@ export function registerCommands(context: vscode.ExtensionContext) {
     }));
     context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.addGroup3', (args) => {
         addToGroup(RunGroup.three, argNotebookCell(args));
+    }));
+
+    // Register remove commands
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.removeGroup1', (args) => {
+        removeFromGroup(RunGroup.one, argNotebookCell(args));
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.removeGroup2', (args) => {
+        removeFromGroup(RunGroup.two, argNotebookCell(args));
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.removeGroup3', (args) => {
+        removeFromGroup(RunGroup.three, argNotebookCell(args));
     }));
 }
 
@@ -38,6 +50,25 @@ function addToGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCell
     }
 
     addGroupToCustomMetadata(notebookCell, targetRunGroup);
+
+    // Always update the context keys after add / remove
+    updateContextKeys();
+}
+
+// Remove the given cell from the specified run group
+function removeFromGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCell) {
+    // If we were not passed in a cell, look for one
+    if (!notebookCell) {
+        notebookCell = getCurrentActiveCell();
+        if (!notebookCell) {
+            return;
+        }
+    }
+
+    removeGroupFromCustomMetadata(notebookCell, targetRunGroup);
+
+    // Always update the context keys after add / remove
+    updateContextKeys();
 }
 
 // Find the current active notebook document and the current active cell in it
@@ -54,12 +85,35 @@ function getCurrentActiveCell(): vscode.NotebookCell | undefined {
     return undefined;
 }
 
-function addGroupToCustomMetadata(notebookCell: vscode.NotebookCell, targetRunGroup: RunGroup) {
+function removeGroupFromCustomMetadata(notebookCell: vscode.NotebookCell, targetRunGroup: RunGroup) {
+    // TODO: Can use .with on the metadata
     const targetString = targetRunGroup.toString();
 
     // Get cell metadata custom to our extension
     const customMetadata = notebookCell.metadata.custom?.notebookRunGroups || {};
+    let currentValue = customMetadata['groups'] as string || '';
 
+    if (!currentValue.includes(targetString)) {
+        // Not there, can't remove
+        log('Given run group is not present, so cannot be removed from.');
+        return;
+    }
+
+    // Add in our group value
+    currentValue = currentValue.replace(targetString, '');
+    customMetadata['groups'] = currentValue;
+    log(`Removing from group Cell Index: ${notebookCell.index} Groups Value: ${currentValue}`);
+
+    // Apply the new metadata to the cell
+    editCellMetadata(notebookCell, customMetadata);
+}
+
+function addGroupToCustomMetadata(notebookCell: vscode.NotebookCell, targetRunGroup: RunGroup) {
+    // TODO: Can use .with on the metadata
+    const targetString = targetRunGroup.toString();
+
+    // Get cell metadata custom to our extension
+    const customMetadata = notebookCell.metadata.custom?.notebookRunGroups || {};
     let currentValue = customMetadata['groups'] as string || '';
 
     if (currentValue.includes(targetString)) {

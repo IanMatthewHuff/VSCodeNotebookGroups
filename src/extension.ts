@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
-import { registerCommands } from './commands';
+import { startup } from './startup';
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('vscode-notebook-groups extension activated');
 
-	// Register all of our commands
-	registerCommands(context);
+	// Startup
+	startup(context);
 }
 
 export function deactivate() {}
