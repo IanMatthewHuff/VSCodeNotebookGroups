@@ -26,6 +26,11 @@ export function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.removeGroup3', (args) => {
         removeFromGroup(RunGroup.three, argNotebookCell(args));
     }));
+
+    // Register execute commands
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.executeGroup1', (args) => {
+        executeGroup(RunGroup.one, argNotebookCell(args));
+    }));
 }
 
 // Is the given argument a vscode NotebookCell?
@@ -37,6 +42,40 @@ function argNotebookCell(args: any): vscode.NotebookCell | undefined {
 
     log('Non-NotebookCell passed to cell based notebook group function');
     return undefined;
+}
+
+function executeGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCell) {
+    let doc = notebookCell?.notebook;
+
+    // If we didn't get a cell passed in, just take the active documents
+    if (!doc) {
+        doc = vscode.window.activeNotebookEditor?.document;
+        doc || log('Execute group called without a valid document to execute');
+    }
+
+    // Collect our cell indexes
+    const targetCells = doc?.getCells().filter(notebookCell => cellInGroup(notebookCell, targetRunGroup)).map(cell => {
+        return { start: cell.index, end: cell.index + 1 };
+    });
+
+    // Execute the cells
+    // TODO: Await? Don't think so.
+    vscode.commands.executeCommand('notebook.cell.execute', { ranges: targetCells } );
+
+    // vscode.commands.executeCommand('notebook.cell.execute', { ranges: [{ start: 0, end: 1 }, { start: 1, end: 2 }] });
+}
+
+function cellInGroup(cell: vscode.NotebookCell, targetRunGroup: RunGroup) {
+    // Get cell metadata custom to our extension
+    const customMetadata = cell.metadata.custom?.notebookRunGroups || {};
+    let currentValue = customMetadata['groups'] as string || '';
+
+    // TODO: Don't need value of here?
+    if (currentValue.includes(targetRunGroup.toString())) {
+        return true;
+    }
+
+    return false;
 }
 
 // For the target cell, add it to the given run group
@@ -102,7 +141,7 @@ function removeGroupFromCustomMetadata(notebookCell: vscode.NotebookCell, target
     // Add in our group value
     currentValue = currentValue.replace(targetString, '');
     customMetadata['groups'] = currentValue;
-    log(`Removing from group Cell Index: ${notebookCell.index} Groups Value: ${currentValue}`);
+    log(`Removing from group Cell Index: ${notebookCell.index} Groups Value: ${targetRunGroup.toString()}`);
 
     // Apply the new metadata to the cell
     editCellMetadata(notebookCell, customMetadata);
