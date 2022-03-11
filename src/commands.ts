@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { getCellRunGroupMetadata, updateCellRunGroupMetadata } from './cellMetadataHelpers';
 import { updateContextKeys } from './contextKeys';
 import { RunGroup } from './enums';
 import { log } from './util/logging';
@@ -50,6 +51,7 @@ function argNotebookCell(args: any): vscode.NotebookCell | undefined {
     return undefined;
 }
 
+// Execute the given target run group. If a cell is specified use that document, if not find the active doc
 function executeGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCell) {
     let doc = notebookCell?.notebook;
 
@@ -70,9 +72,7 @@ function executeGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCe
 
 // Determine if a cell is in a given run group
 function cellInGroup(cell: vscode.NotebookCell, targetRunGroup: RunGroup) {
-    // Get cell metadata custom to our extension
-    const customMetadata = cell.metadata.custom?.notebookRunGroups || {};
-    let currentValue = customMetadata['groups'] as string || '';
+    const currentValue = getCellRunGroupMetadata(cell);
 
     if (currentValue.includes(targetRunGroup.toString())) {
         return true;
@@ -123,70 +123,36 @@ function getCurrentActiveCell(): vscode.NotebookCell | undefined {
 
         return activeNotebook.document.cellCount >= 1 ? activeNotebook.document.cellAt(selectedCellIndex) : undefined;
     }
-
-    return undefined;
 }
 
 function removeGroupFromCustomMetadata(notebookCell: vscode.NotebookCell, targetRunGroup: RunGroup) {
-    // TODO: Can use .with on the metadata
-    const targetString = targetRunGroup.toString();
+    const currentValue = getCellRunGroupMetadata(notebookCell);
 
-    // Get cell metadata custom to our extension
-    const customMetadata = notebookCell.metadata.custom?.notebookRunGroups || {};
-    let currentValue = customMetadata['groups'] as string || '';
-
-    if (!currentValue.includes(targetString)) {
+    if (!currentValue.includes(targetRunGroup.toString())) {
         // Not there, can't remove
         log('Given run group is not present, so cannot be removed from.');
         return;
     }
 
-    // Add in our group value
-    currentValue = currentValue.replace(targetString, '');
-    customMetadata['groups'] = currentValue;
-    log(`Removing from group Cell Index: ${notebookCell.index} Groups Value: ${targetRunGroup.toString()}`);
+    // Add in our group value and update the cell metadata
+    const newValue = currentValue.replace(targetRunGroup.toString(), '');
+    updateCellRunGroupMetadata(notebookCell, newValue);
 
-    // Apply the new metadata to the cell
-    editCellMetadata(notebookCell, customMetadata);
+    log(`Removing from group Cell Index: ${notebookCell.index} Groups Value: ${targetRunGroup.toString()}`);
 }
 
 function addGroupToCustomMetadata(notebookCell: vscode.NotebookCell, targetRunGroup: RunGroup) {
-    // TODO: Can use .with on the metadata
-    const targetString = targetRunGroup.toString();
+    const currentValue = getCellRunGroupMetadata(notebookCell);
 
-    // Get cell metadata custom to our extension
-    const customMetadata = notebookCell.metadata.custom?.notebookRunGroups || {};
-    let currentValue = customMetadata['groups'] as string || '';
-
-    if (currentValue.includes(targetString)) {
+    if (currentValue.includes(targetRunGroup.toString())) {
         // Already there, return
         log('Attempted to add cell to a group it is already in');
         return;
     }
 
     // Add in our group value
-    currentValue = currentValue.concat(targetString);
-    customMetadata['groups'] = currentValue;
-    log(`Adding to group Cell Index: ${notebookCell.index} Groups Value: ${currentValue}`);
+    const newValue = currentValue.concat(targetRunGroup.toString());
+    updateCellRunGroupMetadata(notebookCell, newValue);
 
-    // Apply the new metadata to the cell
-    editCellMetadata(notebookCell, customMetadata);
-}
-
-// Apply new metadata to a notebook cell
-function editCellMetadata(notebookCell: vscode.NotebookCell, runGroupMetadata: { [key: string]: any }) {
-    const wsEdit = new vscode.WorkspaceEdit();
-
-    // Update our metadata.custom.notebookRunGroups block
-    const newMetadata = notebookCell.metadata;
-
-    if (!newMetadata.custom) {
-        newMetadata.custom = {};
-    }
-    newMetadata.custom['notebookRunGroups'] = runGroupMetadata;
-    
-
-    // Perform our actual replace and edit
-    wsEdit.replaceNotebookCellMetadata(notebookCell.document.uri, notebookCell.index, newMetadata);
-    vscode.workspace.applyEdit(wsEdit);
+    log(`Adding to group Cell Index: ${notebookCell.index} Groups Value: ${newValue}`);
 }
