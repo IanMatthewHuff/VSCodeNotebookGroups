@@ -126,17 +126,17 @@
 			"notebook/toolbar": [
 				{
 					"command": "vscode-notebook-groups.executeGroup1",
-					"group": "navigation/execute@1",
+					"group": "navigation/execute@6",
 					"when": "config.notebookRunGroups.groupCount > 0 && config.notebookRunGroups.runIconsOnEditorToolbar"
 				},
 				{
 					"command": "vscode-notebook-groups.executeGroup2",
-					"group": "navigation/execute@2",
+					"group": "navigation/execute@7",
 					"when": "config.notebookRunGroups.groupCount > 1 && config.notebookRunGroups.runIconsOnEditorToolbar"
 				},
 				{
 					"command": "vscode-notebook-groups.executeGroup3",
-					"group": "navigation/execute@3",
+					"group": "navigation/execute@8",
 					"when": "config.notebookRunGroups.groupCount > 2 && config.notebookRunGroups.runIconsOnEditorToolbar"
 				}
 			],
@@ -186,6 +186,34 @@
 					"group": "inline/cell@18",
 					"when": "config.notebookRunGroups.groupCount > 2 && notebookRunGroups.inGroupThree && config.notebookRunGroups.runIconsOnCell"
 				}
+			],
+			"notebook/cell/execute": [
+				{
+					"command": "vscode-notebook-groups.executeGroup1",
+					"when": "config.notebookRunGroups.groupCount > 0 && notebookRunGroups.inGroupOne && config.notebookRunGroups.runIconsInExecute"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup2",
+					"when": "config.notebookRunGroups.groupCount > 1 && notebookRunGroups.inGroupTwo && config.notebookRunGroups.runIconsInExecute"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup3",
+					"when": "config.notebookRunGroups.groupCount > 2 && notebookRunGroups.inGroupThree && config.notebookRunGroups.runIconsInExecute"
+				}
+			],
+			"notebook/cell/executePrimary": [
+				{
+					"command": "vscode-notebook-groups.executeGroup1",
+					"when": "config.notebookRunGroups.groupCount > 0 && notebookRunGroups.inGroupOne && config.notebookRunGroups.runIconsInExecute"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup2",
+					"when": "config.notebookRunGroups.groupCount > 1 && notebookRunGroups.inGroupTwo && config.notebookRunGroups.runIconsInExecute"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup3",
+					"when": "config.notebookRunGroups.groupCount > 2 && notebookRunGroups.inGroupThree && config.notebookRunGroups.runIconsInExecute"
+				}
 			]
 		},
 		"configuration": [
@@ -202,19 +230,25 @@
 							3
 						],
 						"default": 3,
-						"description": "Count of run groups to show (0-3)",
+						"description": "Count of run groups to show (0-3).",
 						"scope": "machine"
 					},
 					"notebookRunGroups.runIconsOnCell": {
 						"type": "boolean",
 						"default": false,
-						"description": "Display group run icons on each cell toolbar",
+						"description": "Display group run icons on each cell toolbar.",
 						"scope": "machine"
 					},
 					"notebookRunGroups.runIconsOnEditorToolbar": {
 						"type": "boolean",
 						"default": true,
-						"description": "Display group run icons on the global notebook editor toolbar",
+						"description": "Display group run icons on the global notebook editor toolbar.",
+						"scope": "machine"
+					},
+					"notebookRunGroups.runIconsInExecute": {
+						"type": "boolean",
+						"default": true,
+						"description": "Display group run icons in the cell execute dropdown.",
 						"scope": "machine"
 					}
 				}

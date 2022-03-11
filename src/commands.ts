@@ -31,6 +31,12 @@ export function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.executeGroup1', (args) => {
         executeGroup(RunGroup.one, argNotebookCell(args));
     }));
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.executeGroup2', (args) => {
+        executeGroup(RunGroup.two, argNotebookCell(args));
+    }));
+    context.subscriptions.push(vscode.commands.registerCommand('vscode-notebook-groups.executeGroup3', (args) => {
+        executeGroup(RunGroup.three, argNotebookCell(args));
+    }));
 }
 
 // Is the given argument a vscode NotebookCell?
@@ -59,18 +65,15 @@ function executeGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCe
     });
 
     // Execute the cells
-    // TODO: Await? Don't think so.
     vscode.commands.executeCommand('notebook.cell.execute', { ranges: targetCells } );
-
-    // vscode.commands.executeCommand('notebook.cell.execute', { ranges: [{ start: 0, end: 1 }, { start: 1, end: 2 }] });
 }
 
+// Determine if a cell is in a given run group
 function cellInGroup(cell: vscode.NotebookCell, targetRunGroup: RunGroup) {
     // Get cell metadata custom to our extension
     const customMetadata = cell.metadata.custom?.notebookRunGroups || {};
     let currentValue = customMetadata['groups'] as string || '';
 
-    // TODO: Don't need value of here?
     if (currentValue.includes(targetRunGroup.toString())) {
         return true;
     }

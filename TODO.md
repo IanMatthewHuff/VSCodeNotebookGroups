@@ -3,8 +3,9 @@
 - [x] Add button functionality to add cells into a run group
 - [x] Save group membership in cell metadata
 - [x] When in a group, hide the add for that group and show the remove
-- [ ] Run execution commands to run cell in a group
+- [x] Run execution commands to run cell in a group
 - [ ] Make sure that custom metadata is saving
+- [ ] Clean up and consolidate metadata access
 - [ ] Clean up TODOs
 - [ ] CI / Lint
 - [ ] Consolidated run button
