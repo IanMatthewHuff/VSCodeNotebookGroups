@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { updateContextKeys } from './contextTracker';
+import { updateContextKeys } from './contextKeys';
 
 export function registerDocuments(context: vscode.ExtensionContext) {
     // Sign up for any document opens that we get

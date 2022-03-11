@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { getCellRunGroupMetadata } from './cellMetadataHelpers';
 
 // To work around some issues with context keys I'm only considering the currently selected cell for
 // determining if I should show the remove or add buttons for each group. Long term I don't like this
@@ -13,11 +14,9 @@ export function updateContextKeys() {
     }
 }
 
+// Add the specified cell to and out of any group context keys
 function setCellContextKeys(cell: vscode.NotebookCell) {
-    // Get cell metadata custom to our extension
-    // TODO: Common code with code in commands.ts
-    const customMetadata = cell.metadata.custom?.notebookRunGroups || {};
-    let currentValue = customMetadata['groups'] as string || '';
+    const currentValue = getCellRunGroupMetadata(cell);
 
     if (currentValue.includes('1')) {
         vscode.commands.executeCommand('setContext', 'notebookRunGroups.inGroupOne', true);

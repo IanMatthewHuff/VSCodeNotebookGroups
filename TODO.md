@@ -5,7 +5,7 @@
 - [x] When in a group, hide the add for that group and show the remove
 - [x] Run execution commands to run cell in a group
 - [ ] Make sure that custom metadata is saving
-- [ ] Clean up and consolidate metadata access
+- [x] Clean up and consolidate metadata access
 - [ ] Clean up TODOs
 - [ ] CI / Lint
 - [ ] Consolidated run button
