@@ -42,7 +42,7 @@ export function registerCommands(context: vscode.ExtensionContext) {
 
 // Is the given argument a vscode NotebookCell?
 function argNotebookCell(args: any): vscode.NotebookCell | undefined {
-    // TODO: Is there a better way to do this? Seems ugly...
+    // Check to see if we have a notebook cell for command context. Kinda ugly? Maybe a better way to do this.
     if (args && 'index' in args && 'kind' in args && 'notebook' in args && 'document' in args) {
         return args as vscode.NotebookCell;
     }

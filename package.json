@@ -38,8 +38,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupOne/RunGroupOneRun-light.svg",
 					"dark": "src/icons/RunGroupOne/RunGroupOneRun-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.addGroup1",
@@ -48,8 +47,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupOne/RunGroupOneAdd-light.svg",
 					"dark": "src/icons/RunGroupOne/RunGroupOneAdd-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.removeGroup1",
@@ -58,8 +56,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupOne/RunGroupOneRemove-light.svg",
 					"dark": "src/icons/RunGroupOne/RunGroupOneRemove-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 0 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.executeGroup2",
@@ -68,8 +65,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupTwo/RunGroupTwoRun-light.svg",
 					"dark": "src/icons/RunGroupTwo/RunGroupTwoRun-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.addGroup2",
@@ -78,8 +74,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupTwo/RunGroupTwoAdd-light.svg",
 					"dark": "src/icons/RunGroupTwo/RunGroupTwoAdd-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.removeGroup2",
@@ -88,8 +83,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupTwo/RunGroupTwoRemove-light.svg",
 					"dark": "src/icons/RunGroupTwo/RunGroupTwoRemove-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 1 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.executeGroup3",
@@ -98,8 +92,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeRun-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeRun-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.addGroup3",
@@ -108,8 +101,7 @@
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeAdd-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeAdd-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+				}
 			},
 			{
 				"command": "vscode-notebook-groups.removeGroup3",
@@ -118,11 +110,57 @@
 				"icon": {
 					"light": "src/icons/RunGroupThree/RunGroupThreeRemove-light.svg",
 					"dark": "src/icons/RunGroupThree/RunGroupThreeRemove-dark.svg"
-				},
-				"when": "config.notebookRunGroups.groupCount > 2 && notebookEditorFocused"
+				}
 			}
 		],
 		"menus": {
+			"commandPalette": [
+				{
+					"command": "vscode-notebook-groups.executeGroup1",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 0"
+				},
+				{
+					"command": "vscode-notebook-groups.addGroup1",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 0"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup1",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 0"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup2",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 1"
+				},
+				{
+					"command": "vscode-notebook-groups.addGroup2",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 1"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup2",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 1"
+				},
+				{
+					"command": "vscode-notebook-groups.executeGroup3",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 2"
+				},
+				{
+					"command": "vscode-notebook-groups.addGroup3",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 2"
+				},
+				{
+					"command": "vscode-notebook-groups.removeGroup3",
+					"group": "Notebook Run Groups",
+					"when": "config.notebookRunGroups.groupCount > 2"
+				}
+			],
 			"notebook/toolbar": [
 				{
 					"command": "vscode-notebook-groups.executeGroup1",
