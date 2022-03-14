@@ -8,7 +8,8 @@
 - [x] Clean up and consolidate metadata access
 - [ ] Clean up TODOs
 - [ ] CI / Lint
-- [ ] Consolidated run button
+- [x] Consolidated run button
+- [ ] Use cell status to show group membership
 - [ ] Restrict when command palette commands show up
 - [ ] Basic VS Code tests
 - [ ] Cleanup README and skeleton code
