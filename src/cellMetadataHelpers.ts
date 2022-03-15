@@ -24,6 +24,6 @@ export function updateCellRunGroupMetadata(cell: vscode.NotebookCell, newGroupVa
 
     // Perform our actual replace and edit
     const wsEdit = new vscode.WorkspaceEdit();
-    wsEdit.replaceNotebookCellMetadata(cell.document.uri, cell.index, newMetadata);
+    wsEdit.replaceNotebookCellMetadata(cell.notebook.uri, cell.index, newMetadata);
     vscode.workspace.applyEdit(wsEdit);
 }

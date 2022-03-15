@@ -4,12 +4,11 @@
 - [x] Save group membership in cell metadata
 - [x] When in a group, hide the add for that group and show the remove
 - [x] Run execution commands to run cell in a group
-- [ ] Make sure that custom metadata is saving
+- [x] Make sure that custom metadata is saving
 - [x] Clean up and consolidate metadata access
 - [ ] Clean up TODOs
-- [ ] CI / Lint
 - [x] Consolidated run button
-- [ ] Use cell status to show group membership
+- [x] Use cell status to show group membership
 - [ ] Restrict when command palette commands show up
 - [ ] Basic VS Code tests
 - [ ] Cleanup README and skeleton code
