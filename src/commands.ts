@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
 import { getCellRunGroupMetadata, updateCellRunGroupMetadata } from './cellMetadataHelpers';
-import { CellStatusBarItemProvider } from './cellStatusBar';
 import { updateContextKeys } from './contextKeys';
 import { RunGroup } from './enums';
 import { log } from './util/logging';
@@ -96,7 +95,6 @@ function addToGroup(targetRunGroup: RunGroup, notebookCell?: vscode.NotebookCell
 
     // Always update the context keys and cell status after add / remove
     updateContextKeys();
-    CellStatusBarItemProvider.cellStatusBarChanged();
 }
 
 // Remove the given cell from the specified run group
@@ -113,7 +111,6 @@ function removeFromGroup(targetRunGroup: RunGroup, notebookCell?: vscode.Noteboo
 
     // Always update the context keys and cell status after add / remove
     updateContextKeys();
-    CellStatusBarItemProvider.cellStatusBarChanged();
 }
 
 // Find the current active notebook document and the current active cell in it
